@@ -5,29 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.ViewGame">
 
-    <!-- Imagem do Jogo -->
-    <ImageView
-        android:id="@+id/imageViewGame"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_smart_games_icon" />
-
-    <!-- Botão de Voltar -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:src="@drawable/ic_menu_camera" />
-
-    <!-- Detalhes do Jogo -->
+    <!-- Scroll com todo o conteúdo -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/imageViewGame">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,40 +16,86 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Título do Jogo -->
-            <TextView
-                android:id="@+id/textViewGameTitle"
+            <!-- Imagem do Jogo -->
+            <ImageView
+                android:id="@+id/imageViewGame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nome do Jogo"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="640dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_smart_games_icon" />
 
-            <!-- Descrição do Jogo -->
-            <TextView
-                android:id="@+id/textViewGameDescription"
+            <!-- Detalhes do Jogo -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Descrição do Jogo. Esta é uma descrição longa do jogo, fornecendo detalhes sobre seus recursos e jogabilidade."
-                android:textSize="16sp" />
+                android:orientation="vertical">
 
-            <!-- Preço do Jogo -->
-            <TextView
-                android:id="@+id/textViewGamePrice"
+                <!-- Título do Jogo -->
+                <TextView
+                    android:id="@+id/textViewGameTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nome do Jogo"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- Descrição do Jogo -->
+                <TextView
+                    android:id="@+id/textViewGameDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Descrição do Jogo. Esta é uma descrição longa do jogo, fornecendo detalhes sobre seus recursos e jogabilidade."
+                    android:textSize="16sp" />
+
+                <!-- Preço do Jogo -->
+                <TextView
+                    android:id="@+id/textViewGamePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preço: R$ 49,99"
+                    android:textSize="18sp"
+                    android:layout_marginTop="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Plataformas"
+                    android:textSize="10sp" />
+
+                <ListView
+                    android:id="@+id/listViewPlatform"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Onde encontrar?"
+                    android:textSize="10sp" />
+
+                <ListView
+                    android:id="@+id/listViewStore"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
+
+            </LinearLayout>
+
+            <!-- Espaço em branco para empurrar o botão para a parte inferior -->
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Preço: R$ 49,99"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"/>
 
             <!-- Botão de Compra -->
             <Button
                 android:id="@+id/btnBuy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="Adicionar ao Carrinho"
                 android:background="@color/colorPurple" />
 

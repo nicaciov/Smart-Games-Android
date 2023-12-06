@@ -1,9 +1,11 @@
 package com.vjnicacio.smartgames.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class StoreModel {
+public class StoreModel implements Serializable {
 
+	// Atributos da loja
 	public long id;
 	public long game_id;
 	public String store;
@@ -12,6 +14,7 @@ public class StoreModel {
 	public Date inclusion_date;
 	public Date edit_date;
 
+	// Métodos getter e setter para acessar e modificar os atributos
 	public long getId() {
 		return id;
 	}
@@ -67,5 +70,4 @@ public class StoreModel {
 	public void setEdit_date(Date edit_date) {
 		this.edit_date = edit_date;
 	}
-
 }

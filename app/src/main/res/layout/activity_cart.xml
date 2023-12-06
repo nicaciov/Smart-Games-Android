@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- ListView para listar os itens do carrinho -->
+    <ListView
+        android:id="@+id/listViewCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layoutCartFooter"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Layout para o rodapé do carrinho -->
+    <RelativeLayout
+        android:id="@+id/layoutCartFooter"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true">
+
+        <!-- Subtotal -->
+        <TextView
+            android:id="@+id/textViewSubtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subtotal: R$ 0,00"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginRight="16dp" />
+
+        <!-- Botão para escanear QR code -->
+        <ImageButton
+            android:id="@+id/btnScanCoupon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorPurple"
+            android:src="@drawable/ic_qr_code" />
+
+        <!-- Campo para inserir código de cupom ou escanear QR code -->
+        <EditText
+            android:id="@+id/editTextCouponCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnScanCoupon"
+            android:layout_toRightOf="@+id/textViewSubtotal"
+            android:layout_marginRight="8dp"
+            android:hint="Código do Cupom"
+            android:layout_centerVertical="true"
+            android:inputType="text" />
+
+        <!-- Botão Finalizar Compra -->
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewSubtotal"
+            android:layout_marginTop="100dp"
+            android:background="@color/colorPurple"
+            android:text="Finalizar Compra"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

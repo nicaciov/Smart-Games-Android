@@ -45,21 +45,23 @@ public class ListAllGames extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshlayout;
     private ProgressDialog dialog;
 
-    static String uriListAllGames = "http://192.168.0.23/rest-api-smart-games/rest/services/data/listAllGames";
+    static public String ip = "http://192.168.0.23";
+
+    static String uriListAllGames = (ip + "/rest-api-smart-games/rest/services/data/listAllGames");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_all_games);
 
+        // Tenta fazer a requisição para listar todos os jogos
         try {
-            Log.e("Aqui", "Try");
             volleyListAllGames(getApplicationContext(), uriListAllGames);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("Aqui", "TryErro");
+            Toast.makeText(getApplicationContext(), "Houve um erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+        // Inicializa os componentes da interface do usuário
         swipeRefreshlayout = findViewById(R.id.swipeRefreshlayout);
         swipeRefreshlayout.setRefreshing(true);
 
@@ -67,20 +69,20 @@ public class ListAllGames extends AppCompatActivity {
         int c2 = getResources().getColor(R.color.colorPurple);
         int c3 = getResources().getColor(R.color.colorPurple);
 
+        // Configura o esquema de cores para o SwipeRefreshLayout
         swipeRefreshlayout.setColorSchemeColors(c1, c2, c3);
         swipeRefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
+                // Atualiza a lista de jogos ao puxar para baixo
                 swipeRefreshlayout.setRefreshing(true);
                 Toast.makeText(getApplicationContext(), "Carregando . . .", Toast.LENGTH_SHORT).show();
 
                 try {
-                    Log.e("Aqui", "Try");
                     volleyListAllGames(getApplicationContext(), uriListAllGames);
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("Aqui", "TryErro");
+                    Toast.makeText(getApplicationContext(), "Houve um Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 swipeRefreshlayout.setRefreshing(false);
@@ -89,6 +91,7 @@ public class ListAllGames extends AppCompatActivity {
 
     }
 
+    // Método para fazer a requisição para listar todos os jogos
     public void volleyListAllGames(final Context ctx, String url) {
 
         if (rQueue == null) {
@@ -102,22 +105,25 @@ public class ListAllGames extends AppCompatActivity {
 
                 Log.e("Tartaruga", "result " + result);
 
+                // Finaliza o indicador de carregamento
                 swipeRefreshlayout.setRefreshing(false);
                 if (result != null) {
 
                     Log.e("RESULT: ", "*" + result + "*");
 
+                    // Lista para armazenar os modelos de jogo
                     List<GameModel> list = new ArrayList<GameModel>();
                     GameModel gameModel = null;
 
                     try {
 
+                        // Converte a resposta JSON em objetos GameModel
                         JSONArray json = new JSONArray(result);
                         for (int i = 0; i < json.length(); i++) {
                             JSONObject object = json.getJSONObject(i);
                             gameModel = new GameModel();
 
-
+                            // Tenta obter e definir os atributos do jogo
                             try {
                                 gameModel.setId(object.getInt("id"));
                             } catch (Exception e) {
@@ -129,6 +135,7 @@ public class ListAllGames extends AppCompatActivity {
                             }
 
                             try {
+                                // Se a foto estiver na resposta, remove a parte inicial
                                 gameModel.setPhoto(object.getString("photo").substring(object.getString("photo").indexOf(","), object.getString("photo").length()));
                             } catch (Exception e) {
                             }
@@ -138,37 +145,38 @@ public class ListAllGames extends AppCompatActivity {
                             } catch (Exception e) {
                             }
 
+                            // Adiciona o modelo de jogo à lista
                             list.add(gameModel);
                         }
 
+                        // Configura o RecyclerView para exibir a lista de jogos
                         rvArticle = findViewById(R.id.recyclerView);
                         rvArticle.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         rvAdapter = new GameAdapter(list, getApplicationContext(), ListAllGames.this);
                         rvArticle.setAdapter(rvAdapter);
 
+                        // Finaliza o indicador de carregamento
                         swipeRefreshlayout.setRefreshing(false);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
 
-                        Toast.makeText(getApplicationContext(), "Erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e("ERRO", ex.getMessage());
+                        Toast.makeText(getApplicationContext(), "Houve um Erro: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                        // Finaliza o indicador de carregamento
                         swipeRefreshlayout.setRefreshing(false);
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Erro: "  , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Houve um Erro: ", Toast.LENGTH_SHORT).show();
+                    // Finaliza o indicador de carregamento
                     swipeRefreshlayout.setRefreshing(false);
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
-
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getApplicationContext(), "Erro: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "Erro: " + volleyError.getCause(), Toast.LENGTH_SHORT).show();
-                Log.e("Aqui", "ErrorResponse: " + volleyError.getMessage());
-                Log.e("Aqui", "ErrorResponse: " + volleyError.getCause());
+                Toast.makeText(getApplicationContext(), "Houve um Erro: " + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                // Finaliza o indicador de carregamento
                 swipeRefreshlayout.setRefreshing(false);
             }
         }) {
@@ -182,18 +190,19 @@ public class ListAllGames extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         rQueue.add(request);
     }
+
+    // Método para lidar com a seleção de itens no menu de opções
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        startActivity(new Intent(ListAllGames.this, ViewGame.class));
-
+        // Abre a atividade do carrinho quando o ícone do carrinho é selecionado
+        startActivity(new Intent(ListAllGames.this, Cart.class));
         return false;
     }
+
+    // Método para inflar o menu de opções na barra de ação
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
-
 }

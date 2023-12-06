@@ -1,22 +1,27 @@
 package com.vjnicacio.smartgames.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class GameModel {
+public class GameModel implements Serializable {
 
+	// Atributos do jogo
 	public long id;
 	public String game_name;
 	public String game_description;
 	public double game_price;
 	public String photo;
 
+	// Datas de inclusão e edição
 	public Date inclusion_date;
 	public Date edit_date;
 
+	// Listas de plataformas e lojas associadas ao jogo
 	public List<PlatformModel> listPlatforms;
 	public List<StoreModel> listStores;
 
+	// Métodos getter e setter para acessar e modificar os atributos
 	public long getId() {
 		return id;
 	}
@@ -88,5 +93,4 @@ public class GameModel {
 	public void setListStores(List<StoreModel> listStores) {
 		this.listStores = listStores;
 	}
-
 }
