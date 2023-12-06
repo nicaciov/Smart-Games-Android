@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.ViewGame">
+
+    <!-- Imagem do Jogo -->
+    <ImageView
+        android:id="@+id/imageViewGame"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_smart_games_icon" />
+
+    <!-- Botão de Voltar -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_menu_camera" />
+
+    <!-- Detalhes do Jogo -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imageViewGame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Título do Jogo -->
+            <TextView
+                android:id="@+id/textViewGameTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome do Jogo"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <!-- Descrição do Jogo -->
+            <TextView
+                android:id="@+id/textViewGameDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Descrição do Jogo. Esta é uma descrição longa do jogo, fornecendo detalhes sobre seus recursos e jogabilidade."
+                android:textSize="16sp" />
+
+            <!-- Preço do Jogo -->
+            <TextView
+                android:id="@+id/textViewGamePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Preço: R$ 49,99"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Botão de Compra -->
+            <Button
+                android:id="@+id/btnBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Adicionar ao Carrinho"
+                android:background="@color/colorPurple" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
